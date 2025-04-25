@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cardio Love Journey</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ffdee9, #b5fffc);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #ff4b91;
+      margin-bottom: 0.5em;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .progress-container {
+      width: 90%;
+      max-width: 600px;
+      height: 40px;
+      background-color: #fff0f6;
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      margin: 20px 0;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      transition: width 0.5s ease;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #ff4b91;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      margin: 10px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .message {
+      font-size: 1.3rem;
+      color: #d6336c;
+      opacity: 0;
+      animation: popUp 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes popUp {
+      0% { opacity: 0; transform: scale(0.5); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Poojasri ❤️ Avinash</h1>
+
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <div>
+    <button onclick="updateProgress(true)">✔️ Cardio Done</button>
+    <button onclick="updateProgress(false)">❌ Missed</button>
+    <button onclick="resetProgress()">🔄 Reset</button>
+  </div>
+
+  <p class="message" id="message"></p>
+
+  <script>
+    let currentDay = 0;
+
+    function updateProgress(done) {
+      if (done) {
+        currentDay = Math.min(58, currentDay + 1);
+      } else {
+        currentDay = Math.max(0, currentDay - 1);
+      }
+      refreshUI();
+    }
+
+    function refreshUI() {
+      const percent = (currentDay / 58) * 100;
+      document.getElementById('progressBar').style.width = percent + '%';
+
+      const msg = document.getElementById('message');
+      msg.style.opacity = 0;
+
+      if (currentDay === 58) {
+        msg.textContent = '🎉 Congratulations!! You both now have 100% chances of getting mingled! 💞';
+        msg.style.animation = 'popUp 1s ease forwards';
+      } else {
+        msg.textContent = `You’re ${currentDay}/58 days closer to love! Keep going ❤️`;
+        msg.style.animation = 'popUp 0.6s ease forwards';
+      }
+    }
+
+    function resetProgress() {
+      currentDay = 0;
+      refreshUI();
+    }
+
+    // Initial UI state
+    refreshUI();
+  </script>
+</body>
+</html>
